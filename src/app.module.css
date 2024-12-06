@@ -1,0 +1,34 @@
+.container {
+	width: 50%;
+	margin: auto;
+	border: 2px solid red;
+}
+
+.calculator {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	flex-direction: column;
+}
+
+.tablo {
+	width: 50%;
+	height: 40px;
+	border: 2px solid green;
+	font-size: 2em;
+	text-align: center;
+}
+.number {
+	width: 50%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.numberButton {
+	width: 32%;
+	cursor: pointer;
+	font-size: 3em;
+}
+.result {
+	color: red;
+}
