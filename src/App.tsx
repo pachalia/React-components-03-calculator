@@ -4,9 +4,9 @@ import styles from './app.module.css';
 const calculate = (express: string) => new Function(`return ${express}`);
 
 const App: React.FC = () => {
-	const [tablo, setTablo] = useState<string>('0');
+	const [tablo, setTablo] = useState<string>('');
 	const [result, setResult] = useState<boolean>(false);
-	const [operator, setOperator] = useState<boolean>(false);
+	const [isOperator, setIsOperator] = useState<boolean>(false);
 
 	const NUMS: number[] = [];
 	for (let i = 0; i <= 9; i++) {
@@ -14,31 +14,30 @@ const App: React.FC = () => {
 	}
 
 	const clickNumberHandler = ({ target }) => {
-		setOperator(false);
+		if (!tablo && target.innerText === '0') return;
+		if (isOperator && target.innerText === '0') return;
+		setIsOperator(false);
 		setResult(false);
 		const _tablo = tablo + target.innerText;
 		setTablo(_tablo);
 	};
 
 	const clearHandler = () => {
-		setOperator(false);
+		setIsOperator(false);
 		setResult(false);
-		setTablo('0');
+		setTablo('');
 	};
 
 	const equalHandler = () => {
-		const matches = tablo;
-		if (matches.at(-1) === '-' || matches.at(-1) === '+') return;
-		const result = calculate(matches);
-		setResult(true);
-		setTablo(result());
+		!isOperator ? setTablo(calculate(tablo)()) : null;
+		!isOperator ? setResult(true) : null;
 	};
 	const clickOperatorHandler = ({ target }) => {
-		if (!operator) {
+		if (!isOperator) {
 			setResult(false);
 			setTablo(`${tablo}${target.innerText}`);
 		}
-		setOperator(true);
+		setIsOperator(true);
 	};
 
 	return (
